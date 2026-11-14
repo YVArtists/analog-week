@@ -1,0 +1,851 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Analog Week</title>
+<meta name="description" content="By invitation. November 30 to December 3 at Desert Doghouse. Cellist Tina Guo and pianist Derek Nakamoto kick it off on December 1, playing together for the first time, recorded live as a one-off record.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- Garamond stand-in (EB Garamond) and a display-serif stand-in (Cormorant Garamond) until Parode and Darling files are added to /fonts -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap">
+<link rel="preload" as="image" href="img/hero-dusk.webp" fetchpriority="high">
+<script>
+  document.documentElement.classList.add('reveal-pending');
+  window.__revealFallback = setTimeout(function () { document.documentElement.classList.remove('reveal-pending'); }, 900);
+</script>
+<style>
+/* ---------- Fonts: drop licensed files into /fonts ---------- */
+@font-face { font-family: "Parode"; src: local("Parode"), url("fonts/Parode.woff2") format("woff2"); font-display: swap; }
+@font-face { font-family: "Darling"; src: local("Darling"), url("fonts/Darling.woff2") format("woff2"); font-display: swap; }
+
+:root {
+  /* Colour: sampled from Chris's flyer (dusk photo) and analog-week.com */
+  --night: #11223c;        /* flyer, top of the sky */
+  --navy: #2a3a5e;         /* flyer, sky band */
+  --dusk: #44435d;         /* flyer, indigo band */
+  --mauve: #7d5f6e;        /* flyer, mauve band */
+  --ember: #b5745e;        /* flyer, horizon glow */
+  --ember-lt: #d9916f;     /* named tint of --ember, text and button on night */
+  --cream: #FDF8F2;        /* analog-week.com */
+  --muted: #c9bfc9;        /* named tint of --mauve, secondary text on night */
+  --teal: #012b29;         /* Tina Guo portrait ground */
+  --black: #0b0f12;        /* Derek Nakamoto portrait ground */
+  --ink-on-cream: #11223c;
+  --muted-on-cream: #3d4d66;
+
+  --f-display: "Parode", "Cormorant Garamond", "Times New Roman", serif;
+  --f-head: "Darling", "Cormorant Garamond", "Times New Roman", serif;
+  --f-body: "Garamond", "EB Garamond", Georgia, serif;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.76, 0, 0.24, 1);
+  --t-reveal: 800ms;
+  --rise: 24px;
+  --stagger: 70ms;
+  --margin: clamp(20px, 4.2vw, 64px);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { color-scheme: dark; background: var(--night); }
+body {
+  margin: 0; background: var(--night); color: var(--cream);
+  font-family: var(--f-body); font-size: clamp(1.125rem, 0.4vw + 1rem, 1.3125rem); line-height: 1.5;
+  -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+}
+img { display: block; max-width: 100%; }
+h1, h2, h3, p { margin: 0; }
+a { color: inherit; text-underline-offset: 0.18em; text-decoration-thickness: 0.07em; }
+:focus-visible { outline: 2px solid var(--ember-lt); outline-offset: 3px; }
+::selection { background: var(--ember-lt); color: var(--night); }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ---------- Type roles ---------- */
+.label {
+  font-family: var(--f-display); font-weight: 400; text-transform: uppercase;
+  font-size: clamp(0.8125rem, 0.2vw + 0.78rem, 0.95rem); letter-spacing: 0.14em; line-height: 1.5;
+}
+.h-display {
+  font-family: var(--f-display); font-weight: 300; line-height: 0.98; letter-spacing: -0.02em;
+  font-size: clamp(2.1rem, 5.4vw, 5rem); text-wrap: balance; hyphens: none;
+}
+.h-section {
+  font-family: var(--f-head); font-weight: 400; line-height: 1.02; letter-spacing: -0.015em;
+  font-size: clamp(2.1rem, 4.6vw, 4.2rem); text-wrap: balance; hyphens: none;
+}
+.statement {
+  font-family: var(--f-display); font-weight: 300; line-height: 1.12; letter-spacing: -0.01em;
+  font-size: clamp(1.6rem, 3.1vw, 2.9rem); text-wrap: balance;
+}
+.body { max-width: 34em; color: var(--cream); }
+.body + .body { margin-top: 1em; }
+.muted { color: var(--muted); }
+
+/* Draft placeholders for Chris (kept visible in v1) */
+.note { color: var(--ember-lt); border-bottom: 1px dashed currentColor; white-space: normal; }
+.on-cream .note { color: #7a3d27; }
+
+/* ---------- Header ---------- */
+.site-head {
+  position: fixed; inset: 0 0 auto 0; z-index: 20; display: flex; justify-content: space-between; align-items: center;
+  padding: 14px var(--margin); transition: transform 500ms var(--ease-out), background-color 300ms linear;
+}
+.site-head.is-solid { background: var(--night); }
+.site-head.is-hidden { transform: translateY(-100%); }
+.wordmark { font-family: var(--f-display); font-size: 1.25rem; letter-spacing: 0.01em; text-decoration: none; }
+.head-cta {
+  font-family: var(--f-display); text-transform: uppercase; letter-spacing: 0.14em; font-size: 0.875rem;
+  text-decoration: none; min-height: 44px; display: inline-flex; align-items: center; border-bottom: 1px solid transparent;
+}
+.head-cta:hover { border-bottom-color: currentColor; }
+
+/* ---------- Hero ---------- */
+.hero { position: relative; padding-top: 72px; box-sizing: border-box; min-height: 100svh; display: grid; align-items: end; overflow: clip; background: var(--night); isolation: isolate; }
+.hero-pic { position: absolute; inset: 0; z-index: -2; background: var(--night); }
+.hero-pic img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 62%; }
+.hero::after { /* neutral scrim over the text area only */
+  content: ""; position: absolute; inset: auto 0 0 0; height: 62%; z-index: -1;
+  background: linear-gradient(to top, rgba(8, 12, 22, 0.78) 0%, rgba(8, 12, 22, 0.55) 45%, rgba(8, 12, 22, 0) 100%);
+}
+.hero-copy { padding: 0 var(--margin) clamp(40px, 8vh, 96px); max-width: 1180px; }
+.hero-copy { color: #e9e2dc; text-align: center; margin-inline: auto; display: flex; flex-direction: column; align-items: center; }
+.hero-copy .tagline, .hero-copy .lede { margin-inline: auto; }
+.hero-copy .h-display.wordmark { margin-bottom: clamp(70px, 24vh, 260px) !important; }
+.hero-copy .label { color: #e9e2dc; margin-bottom: 1.1rem; }
+.hero-copy .h-display.wordmark { font-size: 0; line-height: 0; margin-bottom: 1.2rem; }
+.wordmark img { width: min(340px, 62vw); height: auto; }
+.hero-copy .h-display { margin-bottom: 1rem; font-size: clamp(3rem, 9vw, 8.2rem); line-height: 0.92; }
+.h-display .at { display: block; margin-top: 0.7em; font-size: clamp(0.9rem, 1.5vw, 1.35rem); letter-spacing: 0.16em; text-transform: uppercase; line-height: 1.3; }
+.hero-copy .tagline { font-family: var(--f-display); font-weight: 300; font-size: clamp(1.5rem, 2.8vw, 2.5rem); line-height: 1.1; letter-spacing: -0.01em; margin-bottom: 1.1rem; max-width: 20em; color: #e9e2dc; }
+.hero-copy .lede { max-width: 33em; font-size: clamp(1.15rem, 0.5vw + 1rem, 1.4rem); color: #e9e2dc; }
+
+.invite { /* reduced-motion and no-motion default: a quiet line above the eyebrow */
+  font-family: var(--f-display); font-weight: 300; font-size: clamp(1.4rem, 2.4vw, 2rem); margin-bottom: 0.9rem; color: var(--ember-lt);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Opening: the photo is on the first frame; "You're invited" holds, then fades into the page copy. */
+  .invite {
+    position: absolute; inset: 0; display: grid; place-items: center; margin: 0; z-index: 3; text-align: center;
+    font-size: clamp(2.6rem, 8vw, 7.5rem); color: var(--cream); letter-spacing: -0.02em;
+    animation: invite 3.1s var(--ease-expo) both;
+    pointer-events: none;
+  }
+  .invite span { display: block; }
+  .hero-copy > *:not(.invite) { animation: arrive 1100ms var(--ease-expo) both; }
+  .hero-copy .label { animation-delay: 2.7s; }
+  .hero-copy .h-display { animation-delay: 2.82s; }
+  .hero-copy .tagline { animation-delay: 2.96s; }
+  .hero-copy .lede { animation-delay: 3.1s; }
+  .hero::after { animation: scrim 2.6s ease-out both; }
+  .hero-pic img { animation: push 28s ease-out both; transform-origin: 60% 70%; }
+  .is-skipped .invite { animation: none; opacity: 0; visibility: hidden; }
+  .is-skipped .hero-copy > *:not(.invite) { animation: none; }
+  .is-skipped .hero::after { animation: none; }
+}
+@keyframes invite {
+  0% { opacity: 0; transform: translateY(18px); }
+  22% { opacity: 1; transform: none; }
+  78% { opacity: 1; transform: none; }
+  100% { opacity: 0; transform: translateY(-10px); visibility: hidden; }
+}
+@keyframes arrive { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
+@keyframes scrim { 0%, 70% { opacity: 0.55; } 100% { opacity: 1; } }
+@keyframes push { from { transform: scale(1.0); } to { transform: scale(1.1); } }
+
+/* ---------- Statements on night ---------- */
+.field { padding: clamp(96px, 16vh, 200px) var(--margin); }
+.field-night { background: var(--night); }
+.field-teal { background: var(--teal); }
+.field-black { background: var(--black); }
+.on-cream { background: var(--cream); color: var(--ink-on-cream); }
+
+.rows { display: grid; gap: clamp(88px, 14vh, 180px); }
+.row { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.6rem; }
+@media (min-width: 900px) { .row { grid-template-columns: 4fr 8fr; column-gap: var(--margin); align-items: start; } }
+.row > :first-child { }
+.promise { font-family: var(--f-display); font-weight: 300; line-height: 1.08; letter-spacing: -0.015em; font-size: clamp(1.9rem, 4.2vw, 3.9rem); text-wrap: balance; }
+.bridge { font-family: var(--f-display); font-weight: 300; font-size: clamp(1.9rem, 4.2vw, 3.9rem); line-height: 1.05; color: var(--ember-lt); }
+
+
+/* ---------- Promise, Problem, Pain: pinned, one beat at a time ---------- */
+.rotator { background: var(--night); }
+.rot-sticky { display: grid; gap: clamp(72px, 12vh, 140px); padding: clamp(96px, 16vh, 200px) var(--margin); }
+.beat { display: grid; gap: 1.4rem; max-width: 1100px; align-content: start; }
+.beat .h-section { font-size: clamp(2.6rem, 6.4vw, 6rem); }
+.beat .statement { max-width: 24em; }
+.beat .promise { font-size: clamp(1.7rem, 3.7vw, 3.5rem); max-width: none; text-wrap: initial; }
+.beat .bridge { font-size: clamp(2.4rem, 6vw, 5.6rem); }
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .rotator { height: 480vh; view-timeline: --rot block; }
+    .rot-sticky { position: sticky; top: 0; height: 100svh; display: block; padding: 0; overflow: clip; }
+    .beat { position: absolute; inset: 0; padding: 0 var(--margin); align-content: center; opacity: 0; animation: beat linear both; animation-timeline: --rot; }
+    .beat:nth-child(1) { animation-name: beat-first; animation-range: cover 0% cover 38%; }
+    .beat:nth-child(2) { animation-range: cover 35% cover 56%; }
+    .beat:nth-child(3) { animation-range: cover 53% cover 74%; }
+    .beat:nth-child(4) { animation-name: beat-last; animation-range: cover 70% cover 83%; }
+  }
+}
+@keyframes beat-first { 0%, 62% { opacity: 1; transform: none; } 100% { opacity: 0; transform: translateY(-14px); } }
+
+/* ---------- Premise: text beside a full-height picture ---------- */
+.split { display: grid; grid-template-columns: minmax(0, 1fr); background: var(--night); }
+.split-text { padding: clamp(96px, 16vh, 200px) var(--margin); align-self: center; }
+.split-text .h-section { margin-bottom: 1.6rem; }
+.split-pic { position: relative; min-height: 78svh; overflow: clip; }
+.split-pic img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; }
+@media (min-width: 900px) {
+  .split { grid-template-columns: 5fr 6fr; min-height: 100svh; }
+  .split-pic { min-height: 100svh; }
+}
+
+/* ---------- Process: a pinned stage over the music room ---------- */
+.stage { position: relative; background: var(--black); }
+.stage-sticky { position: relative; min-height: 100svh; display: grid; align-items: end; overflow: clip; isolation: isolate; }
+.stage-sticky img { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; }
+.stage-sticky::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(to top, rgba(8,12,22,0.72), rgba(8,12,22,0.35) 55%, rgba(8,12,22,0.2)); }
+.stage-lines { padding: 0 var(--margin) clamp(48px, 9vh, 110px); display: grid; gap: 0.6em; max-width: 1200px; }
+.stage-lines .statement, .stage-lines .h-section { color: var(--cream); }
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .stage { height: 360vh; view-timeline: --stage block; }
+    .stage-sticky { position: sticky; top: 0; height: 100svh; min-height: 0; }
+    .stage-lines { display: block; position: relative; }
+    .stage-lines > * { position: absolute; left: var(--margin); right: var(--margin); bottom: clamp(48px, 9vh, 110px); opacity: 0; animation: beat linear both; animation-timeline: --stage; }
+    .stage-lines > :nth-child(1) { animation-range: cover 18% cover 44%; }
+    .stage-lines > :nth-child(2) { animation-range: cover 40% cover 66%; }
+    .stage-lines > :nth-child(3) { animation-name: beat-last; animation-range: cover 62% cover 80%; }
+    .stage-lines { min-height: 14em; }
+    .stage-sticky img { animation: stage-drift linear both; animation-timeline: --stage; animation-range: cover 0% cover 100%; }
+  }
+}
+@keyframes beat { 0% { opacity: 0; transform: translateY(24px); } 22% { opacity: 1; transform: none; } 78% { opacity: 1; transform: none; } 100% { opacity: 0; transform: translateY(-14px); } }
+@keyframes beat-last { 0% { opacity: 0; transform: translateY(24px); } 40%, 100% { opacity: 1; transform: none; } }
+@keyframes stage-drift { from { transform: scale(1.04); } to { transform: scale(1.12); } }
+
+.stage-img-b { display: none; }
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .stage-sticky img.stage-img-b { display: block; opacity: 0; animation: img-b linear both; animation-timeline: --stage; animation-range: cover 56% cover 66%; }
+  }
+}
+@keyframes img-b { from { opacity: 0; } to { opacity: 1; } }
+.after-stage { background: var(--black); padding: clamp(80px, 13vh, 160px) var(--margin) clamp(96px, 15vh, 190px); }
+
+/* ---------- Payoffs ---------- */
+.payoff { background: var(--night); padding: clamp(110px, 18vh, 220px) var(--margin); }
+.payoff .statement { max-width: 22em; font-size: clamp(1.9rem, 4vw, 3.6rem); }
+
+/* ---------- Proof: the music ---------- */
+.artist-in { display: grid; grid-template-columns: minmax(0, 1fr); min-height: 92svh; }
+.artist-text { padding: clamp(72px, 12vh, 150px) var(--margin); display: flex; flex-direction: column; justify-content: center; gap: 1.4rem; }
+.artist-pic { position: relative; min-height: 70svh; overflow: clip; }
+.artist-pic img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.artist-pic.tina img { object-position: 50% 24%; }
+.artist-pic.derek img { object-position: 50% 28%; }
+@media (min-width: 900px) {
+  .artist-in { grid-template-columns: 6fr 5fr; }
+  .artist.flip .artist-in { grid-template-columns: 5fr 6fr; }
+  .artist.flip .artist-pic { order: -1; }
+  .artist-pic { min-height: 92svh; }
+}
+.artist .h-section { font-size: clamp(2.6rem, 6vw, 5.6rem); }
+
+
+/* Each musician gets their own pinned scroll */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .artist { height: 240vh; view-timeline: --art block; }
+    .artist-in { position: sticky; top: 0; height: 100svh; min-height: 0; }
+    .artist-pic { min-height: 0; height: 100%; }
+    .artist-pic img { animation: art-zoom linear both; animation-timeline: --art; animation-range: cover 0% cover 100%; }
+    .artist-text > p { animation: art-in linear both; animation-timeline: --art; animation-range: cover 28% cover 46%; }
+  }
+}
+@keyframes art-zoom { from { transform: scale(1.0); } to { transform: scale(1.12); } }
+@keyframes art-in { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+
+/* ---------- Proof: the house (full screen) ---------- */
+.house { position: relative; min-height: 100svh; display: grid; align-items: end; overflow: clip; isolation: isolate; }
+.house > img { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; object-position: 50% 12%; }
+.house::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(to top, rgba(8,12,22,0.8), rgba(8,12,22,0.4) 50%, rgba(8,12,22,0.12)); }
+
+.reel { position: relative; background: #000; overflow: clip; }
+.reel video { display: block; width: 100%; height: min(78svh, 56vw); min-height: 320px; object-fit: cover; }
+.reel-cap { position: absolute; left: var(--margin); bottom: 1.2rem; color: var(--cream); text-shadow: 0 1px 12px rgba(0,0,0,.6); margin: 0; }
+.split-media { display: grid; grid-template-columns: minmax(0,1fr); background: var(--night); }
+.split-media .split-pic { min-height: 60svh; }
+.split-vid { position: relative; background: #000; min-height: 70svh; overflow: clip; }
+.split-vid video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.split-vid figcaption { position: absolute; left: 1rem; top: 1.2rem; color: var(--cream); text-shadow: 0 1px 10px rgba(0,0,0,.7); margin: 0; }
+.snd { position: absolute; right: 1rem; bottom: 1rem; background: rgba(17,34,60,.72); color: var(--cream); border: 1px solid rgba(253,248,242,.5); padding: .5rem .9rem; font: inherit; font-size: .8rem; letter-spacing: .08em; text-transform: uppercase; cursor: pointer; }
+@media (min-width: 900px) {
+  .split-media { grid-template-columns: minmax(0,1fr); min-height: 100svh; }
+  .split-vid { min-height: 100svh; }
+}
+
+/* Why analog beats: five, one at a time */
+.beat .label { color: var(--ember-lt); }
+.beat h2.promise { font-size: clamp(2.6rem, 6vw, 5.6rem); }
+.beat .statement.big { font-family: var(--f-display); font-weight: 300; font-size: clamp(2.5rem, 6.2vw, 6rem); line-height: 1.05; max-width: 15em; text-wrap: balance; }
+.beat .label { font-size: clamp(1rem, 1.6vw, 1.5rem); letter-spacing: 0.22em; }
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .rotator { height: 640vh; }
+    .beat:nth-child(1) { animation-range: cover 0% cover 22%; }
+    .beat:nth-child(2) { animation-name: beat; animation-range: cover 18% cover 36%; }
+    .beat:nth-child(3) { animation-name: beat; animation-range: cover 33% cover 51%; }
+    .beat:nth-child(4) { animation-name: beat; animation-range: cover 48% cover 66%; }
+    .beat:nth-child(5) { animation-name: beat; animation-range: cover 63% cover 80%; }
+    .beat:nth-child(6) { animation-name: beat-last; animation-range: cover 77% cover 90%; }
+  }
+}
+/* L.A. Times: one walk through the house */
+.quotes { background: var(--black); }
+.q { position: relative; min-height: 100svh; display: grid; align-items: end; overflow: clip; isolation: isolate; }
+.q > img { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; }
+.q1 > img { object-position: 50% 12%; } .q2 > img { object-position: 50% 55%; } .q3 > img { object-position: 50% 50%; }
+.q::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(to top, rgba(8,12,22,0.82), rgba(8,12,22,0.4) 50%, rgba(8,12,22,0.12)); }
+.q .press { margin: 0 var(--margin) clamp(56px, 10vh, 120px); max-width: 34em; }
+.press-by { font-size: 0.95rem; letter-spacing: 0.04em; }
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .quotes { height: 420vh; view-timeline: --qs block; }
+    .q-sticky { position: sticky; top: 0; height: 100svh; overflow: clip; }
+    .q { position: absolute; inset: 0; min-height: 0; opacity: 0; animation: q-mid linear both; animation-timeline: --qs; }
+    .q1 { animation-name: q-first; animation-range: cover 0% cover 38%; }
+    .q2 { animation-range: cover 30% cover 70%; }
+    .q3 { animation-name: q-last; animation-range: cover 62% cover 90%; }
+    .q > img { animation: q-walk linear both; animation-timeline: --qs; animation-range: cover 0% cover 100%; }
+  }
+}
+@keyframes q-first { 0%, 58% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes q-mid { 0% { opacity: 0; } 28%, 72% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes q-last { 0% { opacity: 0; } 40%, 100% { opacity: 1; } }
+@keyframes q-walk { from { transform: scale(1.0); } to { transform: scale(1.1); } }
+/* Programming */
+.program { background: var(--night); padding: clamp(96px, 15vh, 190px) var(--margin) clamp(56px, 9vh, 110px); }
+.program > div { display: grid; gap: 1.6rem; max-width: 40em; }
+.program .body { color: var(--cream); font-size: clamp(1.1rem, 0.5vw + 1rem, 1.35rem); line-height: 1.5; }
+.program.on-cream { background: var(--cream); color: var(--ink-on-cream); }
+.duo { background: var(--night); padding: clamp(72px, 12vh, 150px) var(--margin); }
+.duo-in { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(48px, 8vh, 80px) clamp(32px, 4vw, 72px); max-width: 1200px; margin-inline: auto; }
+@media (min-width: 800px) { .duo-in { grid-template-columns: 1fr 1fr; } }
+.duo-card { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 1.2rem; }
+.duo-pic { margin: 0; position: relative; width: 100%; aspect-ratio: 5 / 4; overflow: clip; border-radius: 4px; }
+.duo-pic img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.duo .h-section { font-size: clamp(2.2rem, 4vw, 3.6rem); margin: .4rem 0 0; color: var(--cream); }
+.duo .body { color: var(--cream); font-size: clamp(1.05rem, .4vw + 1rem, 1.3rem); line-height: 1.5; max-width: 32rem; }
+.open-house { }
+.oh-in { display: grid; gap: clamp(40px, 6vh, 64px); max-width: 1280px; margin-inline: auto; align-items: center; }
+@media (min-width: 900px) { .oh-in { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(48px, 6vw, 110px); } }
+.program > .oh-in { max-width: 1280px; }
+.oh-text { display: grid; gap: 1.6rem; max-width: 36rem; text-align: center; justify-items: center; margin-inline: auto; }
+.car-track { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; border-radius: 4px; outline-offset: 4px; }
+.car-track::-webkit-scrollbar { display: none; }
+.car-slide { position: relative; flex: 0 0 100%; margin: 0; scroll-snap-align: center; aspect-ratio: 4 / 3; background: var(--night); }
+.car-slide img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.car-slide figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 2.4rem 1.2rem .9rem; font-size: .95rem; letter-spacing: .08em; color: #fff; background: linear-gradient(transparent, rgba(8,16,30,.7)); }
+.car-ui { display: flex; align-items: center; justify-content: space-between; margin-top: 1rem; }
+.car-btn { appearance: none; background: none; border: 1px solid var(--ink-on-cream); color: var(--ink-on-cream); width: 44px; height: 44px; border-radius: 50%; font-size: 1.15rem; cursor: pointer; transition: background .2s, color .2s; }
+.car-btn:hover, .car-btn:focus-visible { background: var(--ink-on-cream); color: var(--cream); }
+.car-dots { display: flex; gap: .55rem; }
+.car-dots span { width: 8px; height: 8px; border-radius: 50%; background: var(--ink-on-cream); opacity: .25; transition: opacity .2s; }
+.car-dots span.on { opacity: .9; }
+.why-eyebrow { font-size: clamp(1rem, 1.6vw, 1.5rem); letter-spacing: 0.14em; color: var(--ember); margin: 0 0 clamp(32px, 6vh, 64px); text-align: center; white-space: nowrap; }
+@media (max-width: 760px) { .why-eyebrow { letter-spacing: 0.02em; margin-inline: -8px; font-size: min(1.2rem, calc((100vw - 32px) / 29.5)); } }
+.duo-intro { max-width: 46rem; margin: 0 auto clamp(56px, 10vh, 110px); display: grid; justify-items: center; gap: 1.4rem; text-align: center; }
+.duo-intro .h-section { color: var(--cream); margin: 0; }
+.duo-intro .body { color: var(--cream); font-size: clamp(1.05rem, .4vw + 1rem, 1.3rem); line-height: 1.55; margin: 0; }
+.es-logo-light { width: clamp(96px, 9vw, 130px); height: auto; }
+.press-name { font-family: var(--f-display); font-weight: 500; font-size: clamp(2rem, 3vw, 2.6rem); letter-spacing: .06em; text-transform: uppercase; color: #fff; line-height: 1; }
+.q .press-long blockquote p { font-size: clamp(1.3rem, 2.1vw, 1.95rem); line-height: 1.2; }
+@media (max-width: 760px) { .open-house .oh-car { order: -1; } }
+.es-logo { width: 84px; height: auto; margin-top: .4rem; }
+.program.on-cream .body { color: var(--ink-on-cream); }
+.program.on-cream strong { color: #7a3d27; }
+.program strong { font-family: var(--f-head); font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; font-size: 0.85em; color: var(--ember-lt); margin-right: 0.4em; }
+@media (min-width: 900px) { .details { grid-template-columns: 6fr 5fr; } }
+.proof { background: var(--night); padding: clamp(64px, 12vh, 140px) var(--margin); text-align: center; display: grid; gap: 2.2rem; justify-items: center; }
+.proof .label { color: var(--muted); }
+.proof-row { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 2.4rem clamp(2.5rem, 7vw, 6rem); }
+.proof-row img { width: auto; opacity: 0.92; }
+.proof-row .p-por { height: 84px; } .proof-row .p-lv { height: 92px; } .proof-row .p-rs { height: 46px; }
+.proof-row .p-lat { height: 30px; } .proof-row .p-vice { height: 40px; } .proof-row .p-max { height: 34px; } .proof-row .p-for { height: 38px; } .proof-row .p-gen { height: 40px; } .proof-row .p-chn { height: 80px; } .proof-row .p-kil { height: 44px; }
+.proof-row { max-width: 720px; gap: 2.4rem clamp(2rem, 4.2vw, 4rem); }
+@media (max-width: 640px) { .proof-row .p-por { height: 68px; } .proof-row .p-lv { height: 76px; } .proof-row .p-rs { height: 38px; } .proof-row .p-lat { height: 26px; } .proof-row .p-vice { height: 32px; } .proof-row .p-max { height: 28px; } .proof-row .p-for { height: 30px; } .proof-row .p-gen { height: 32px; } .proof-row .p-chn { height: 64px; } .proof-row .p-kil { height: 36px; } }
+.house-copy { padding: 0 var(--margin) clamp(56px, 10vh, 120px); max-width: 1100px; display: grid; gap: 1.2rem; }
+
+.press { margin: 1.6rem 0 0; padding-top: 1.6rem; border-top: 1px solid rgba(253, 248, 242, 0.35); max-width: 34em; display: grid; gap: 0.9rem; }
+.press blockquote { margin: 0; }
+.press blockquote p { font-family: var(--f-display); font-weight: 300; font-size: clamp(1.5rem, 2.6vw, 2.3rem); line-height: 1.15; }
+.press-logo { display: block; height: auto; width: 230px; max-width: 70%; flex: none; }
+.press em { font-style: italic; color: var(--ember-lt); }
+.press figcaption { display: flex; flex-direction: column; align-items: flex-start; gap: 0.7rem; font-size: 1rem; color: var(--muted); }
+.faq { background: var(--night); padding: clamp(96px, 15vh, 190px) var(--margin); }
+.faq-in { display: grid; gap: 2rem; max-width: 1280px; width: 100%; margin-inline: auto; }
+.faq-list { display: grid; border-top: 1px solid rgba(253, 248, 242, 0.25); }
+.faq details { border-bottom: 1px solid rgba(253, 248, 242, 0.25); }
+.faq summary { list-style: none; cursor: pointer; min-height: 56px; display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0.9rem 0; font-family: var(--f-display); font-weight: 300; font-size: clamp(1.3rem, 2vw, 1.8rem); line-height: 1.2; }
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; font-family: var(--f-body); font-size: 1.6rem; color: var(--ember-lt); flex: none; }
+.faq details[open] summary::after { content: "\2212"; }
+.faq .ans { padding: 0 0 1.6rem; display: grid; gap: 1em; max-width: 56em; }
+.faq .ans p { margin: 0; }
+.mail { color: var(--cream); }
+.host { position: relative; isolation: isolate; background: var(--night); overflow: clip; display: grid; gap: clamp(32px, 5vh, 56px); padding: clamp(72px, 12vh, 140px) var(--margin); align-items: center; }
+.host-bg { width: 100%; max-width: 30rem; margin-inline: auto; height: auto; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 50%; display: block; border-radius: 4px; box-shadow: 0 0 0 1px rgba(233,226,220,.22), 0 24px 60px rgba(0,0,0,.45); }
+.host-text { display: grid; gap: 1.4rem; max-width: 40rem; text-align: center; margin-inline: auto; }
+.attendees { text-align: center; }
+.attendees > div { max-width: 72rem; margin-inline: auto; justify-items: center; background: var(--cream); color: var(--ink-on-cream); border-radius: 6px; padding: clamp(40px, 7vh, 80px) clamp(20px, 4vw, 48px); box-shadow: 0 2px 4px rgba(0,0,0,.25), 0 28px 70px rgba(0,0,0,.45); }
+.attendees .h-section { color: var(--ink-on-cream); }
+.attendees .guests b { color: var(--ink-on-cream); }
+.attendees .guests em { color: var(--ink-on-cream); font-size: 1.02rem; line-height: 1.45; letter-spacing: .01em; max-width: 15.5rem; text-wrap: balance; }
+.attendees .guests i { color: var(--muted-on-cream); opacity: 1; }
+.attendees .guests .shot { box-shadow: 0 0 0 1px rgba(17,34,60,.18); }
+.guests { list-style: none; margin: clamp(24px, 4vh, 48px) 0 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 3rem clamp(1.5rem, 3vw, 3rem); }
+.guests li { width: 17rem; }
+.guests i { white-space: nowrap; font-size: clamp(.78rem, 3.3vw, .95rem); }
+.guests em { font-style: normal; font-size: 1rem; letter-spacing: .04em; color: var(--ember-lt); }
+.guests li { display: flex; flex-direction: column; align-items: center; text-align: center; gap: .35rem; }
+.guests .shot { width: clamp(130px, 14vw, 170px); aspect-ratio: 1; border-radius: 50%; overflow: hidden; display: grid; place-items: center; margin-bottom: .6rem; background: linear-gradient(160deg, var(--navy), var(--night)); box-shadow: 0 0 0 1px rgba(233,226,220,.3); }
+.guests .shot img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.guests .shot img { width: 100%; height: 100%; object-fit: cover; }
+.guests .shot span { font-family: var(--f-display); font-size: 2rem; letter-spacing: .08em; color: var(--cream); opacity: .7; }
+.guests b { font-family: var(--f-head); font-weight: 400; font-size: 1.35rem; color: var(--cream); }
+.guests i { font-style: normal; font-size: .95rem; letter-spacing: .06em; opacity: .8; color: var(--cream); }
+.host-text .body { color: var(--cream); font-size: clamp(1.05rem, 0.4vw + 0.95rem, 1.25rem); line-height: 1.55; }
+.host-logos { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 1.4rem 2rem; margin-top: 1rem; width: 100%; }
+.host-logos img { width: auto; opacity: 0.95; }
+.host-logos .h-lat { height: 26px; } .host-logos .h-for { height: 32px; } .host-logos .h-max { height: 28px; } .host-logos .h-rob { height: 44px; } .host-logos .h-vice { height: 34px; } .host-logos .h-bel { height: 40px; }
+@media (min-width: 900px) {
+  .host { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: clamp(48px, 6vw, 110px); max-width: 1280px; margin-inline: auto; width: 100%; }
+  .host-bg { max-width: none; margin: 0; }
+  .host-logos .h-lat { height: 20px; } .host-logos .h-for { height: 28px; } .host-logos .h-max { height: 24px; } .host-logos .h-rob { height: 38px; } .host-logos .h-vice { height: 28px; } .host-logos .h-bel { height: 32px; }
+  .host-text { align-self: center; }
+}
+
+/* ---------- Details (cream field) ---------- */
+.details { display: grid; gap: clamp(48px, 8vh, 100px); }
+@media (min-width: 900px) { .details { grid-template-columns: 5fr 6fr; column-gap: calc(var(--margin) * 1.5); } }
+.facts { margin: 0; display: grid; gap: 1.1rem; }
+.facts div { display: grid; grid-template-columns: minmax(0, 8.5rem) 1fr; column-gap: 1.2rem; }
+.facts dt { font-family: var(--f-display); text-transform: uppercase; letter-spacing: 0.14em; font-size: 0.8125rem; padding-top: 0.45em; color: var(--muted-on-cream); }
+.facts dd { margin: 0; }
+.why-list { list-style: none; padding: 0; margin: 1.4rem 0 0; display: flex; flex-wrap: wrap; gap: 0.6rem; }
+.why-list li { font-family: var(--f-head); font-size: 1rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.5em 1.1em; border: 1px solid currentColor; border-radius: 999px; }
+.not { font-family: var(--f-display); font-weight: 300; line-height: 1.12; font-size: clamp(1.6rem, 3vw, 2.7rem); text-wrap: balance; }
+.on-cream .h-section { margin-bottom: 1.4rem; }
+
+/* ---------- Pull (draft hold) ---------- */
+.pull { background: var(--night); padding: clamp(80px, 12vh, 150px) var(--margin); }
+
+/* ---------- Close: the invitation returns ---------- */
+.rsvp { position: relative; min-height: 100svh; display: grid; align-items: end; overflow: clip; isolation: isolate; }
+.rsvp img { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; object-position: 50% 78%; }
+.rsvp::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(to top, rgba(8,12,22,0.86), rgba(8,12,22,0.5) 55%, rgba(8,12,22,0.25)); }
+.rsvp-copy { padding: 0 var(--margin) clamp(48px, 8vh, 96px); max-width: 1100px; display: grid; gap: 1.4rem; justify-items: start; }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; min-height: 56px; padding: 0 2.4rem;
+  background: var(--ember-lt); color: var(--night); border: 0; border-radius: 0; text-decoration: none; cursor: pointer;
+  font-family: var(--f-display); text-transform: uppercase; letter-spacing: 0.16em; font-size: 1rem; font-weight: 500;
+  transition: background-color 200ms var(--ease-out), transform 160ms var(--ease-out);
+}
+.btn:hover { background: var(--cream); }
+.btn:active { transform: scale(0.98); }
+.foot { padding: 28px var(--margin); background: var(--night); display: flex; flex-wrap: wrap; gap: 0.6rem 2rem; justify-content: space-between; font-size: 1rem; color: var(--muted); }
+.foot a { color: var(--cream); }
+
+/* ---------- Reveal (progressive enhancement gate) ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  .reveal-pending .reveal > * {
+    opacity: 0; transform: translateY(var(--rise));
+    transition: opacity 500ms var(--ease-out), transform var(--t-reveal) var(--ease-expo);
+    transition-delay: calc(var(--i, 0) * var(--stagger));
+  }
+  .reveal-pending .reveal.is-in > * { opacity: 1; transform: none; }
+  .reveal-pending .lines .line > span { transform: translateY(calc(100% + 0.4em)); transition: transform var(--t-reveal) var(--ease-expo) calc(var(--i, 0) * 90ms); }
+  .reveal-pending .lines.is-in .line > span { transform: none; }
+  .reveal-pending .shutter { clip-path: inset(0 0 100% 0); transition: clip-path 900ms var(--ease-in-out); }
+  .reveal-pending .shutter.is-in { clip-path: inset(0); }
+  .reveal-pending .shutter img { transform: scale(1.06); transition: transform 1100ms var(--ease-expo); }
+  .reveal-pending .shutter.is-in img { transform: none; }
+}
+.lines .line { display: block; overflow: clip; padding-block: 0.2em; margin-block: -0.2em; }
+.lines .line > span { display: block; }
+.shutter { overflow: clip; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-pic img { animation: none; }
+  html { scroll-behavior: auto; }
+}
+</style>
+
+<header class="site-head" id="head">
+  <a class="wordmark" href="#top" aria-label="You’re invited to Analog Week at Desert Doghouse, top of page">You’re Invited</a>
+  <a class="head-cta" href="#rsvp">RSVP</a>
+</header>
+
+<main id="top">
+
+  <!-- 1. Hero: invitation, then the promise -->
+  <section class="hero" id="hero" aria-labelledby="h1">
+    <div class="hero-pic">
+      <img src="img/hero-dusk.webp" width="1468" height="964" fetchpriority="high"
+           alt="Desert Doghouse at dusk, lit windows and a fire pit glowing under a purple and orange sky">
+    </div>
+    <div class="hero-copy">
+      <p class="invite" id="invite"><span>You’re invited</span></p>
+      <h1 class="h-display wordmark" id="h1"><img src="img/analog-week-logo-stacked.png" width="1400" height="982" alt="Analog Week at Desert Doghouse"></h1>
+      <p class="tagline">Some things are better in person.<br>This is one of them.</p>
+      <p class="lede">Four days at Desert Doghouse, November 30 to December 3, with friends, returning guests and future collaborators. Retreat for the day or week, indulge your senses, and connect with people who value the extraordinary. We also invite you to listen in on December 1 for a special musical performance from Tina Guo and Derek Nakamoto.</p>
+    </div>
+  </section>
+
+  <!-- Shot at the house -->
+  <section class="proof" aria-labelledby="proof-h">
+    <div class="reveal" data-reveal style="display:grid; gap:2.2rem; justify-items:center">
+      <p class="label" style="--i:0">Recent Collaborations at Desert Doghouse</p>
+      <h2 class="h-section" id="proof-h" style="--i:1">A creative hub, where brands and publications come to create.</h2>
+      <div class="proof-row" style="--i:2">
+        <img class="p-por" src="img/logo-porsche.png" width="516" height="260" loading="lazy" alt="Porsche">
+        <img class="p-lv" src="img/logo-lv.png" width="215" height="260" loading="lazy" alt="Louis Vuitton">
+        <img class="p-rs" src="img/logo-rollingstone.png" width="560" height="120" loading="lazy" alt="Rolling Stone">
+        <img class="p-gen" src="img/logo-genlux.png" width="388" height="100" loading="lazy" alt="Genlux Magazine">
+        <img class="p-chn" src="img/logo-chanel.png" width="406" height="260" loading="lazy" alt="Chanel">
+        <img class="p-kil" src="img/logo-killers.png" width="526" height="120" loading="lazy" alt="The Killers">
+      </div>
+    </div>
+  </section>
+
+  <!-- Porsche shoot: silent loop -->
+  <section class="reel" aria-label="A Porsche shoot at Desert Doghouse">
+    <video id="reel-v" muted loop playsinline autoplay preload="metadata" poster="img/porsche-poster.jpg" aria-label="Porsche shoot at Desert Doghouse, silent loop">
+      <source src="vid/porsche.mp4" type="video/mp4">
+    </video>
+    <p class="reel-cap label">Porsche, shot at Desert Doghouse</p>
+  </section>
+
+  <!-- Why analog -->
+  <section class="split" aria-labelledby="why">
+    <div class="split-text reveal" data-reveal>
+      <h2 class="h-section" id="why" style="--i:0">Why “Analog”?</h2>
+      <p class="body statement" style="--i:1; font-size: clamp(1.4rem, 2.2vw, 2.1rem); line-height:1.25; max-width: 20em">We use “analog” as shorthand for things that tend to be better in person with people: cooking, talking, swimming, listening, reading, meeting someone by accident.</p>
+      <p class="body" style="--i:2; margin-top:1.4em">For four days, we’re making a little more room for those things.</p>
+    </div>
+    <div class="split-media">
+      <figure class="split-vid" style="margin:0">
+        <video id="aw-v" muted loop playsinline autoplay preload="metadata" poster="img/analog-week-poster.jpg" aria-label="People at the last Analog Week">
+          <source src="vid/analog-week.mp4" type="video/mp4">
+        </video>
+        <button class="snd" type="button" id="aw-snd" aria-pressed="false">Sound on</button>
+        <figcaption class="label">The last Analog Week</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- Why you, then the details -->
+  <section class="field on-cream" aria-labelledby="whyyou">
+    <p class="label why-eyebrow">Friends, returning guests, &amp; future collaborators</p>
+    <div class="details reveal" data-reveal>
+      <div style="--i:0">
+        <h2 class="h-section" id="whyyou" style="margin-bottom: 0">Why You</h2>
+        <p class="body" style="margin-top:1.4em; color:var(--night); max-width:30em; font-size:1.2rem">We’ve invited you because of your creative eye and passion for your craft. Analog Week is for friends, returning guests and future collaborators, and for anyone who’s been curious about Desert Doghouse or looking for an excuse to escape the city and visit Joshua Tree. Come for the afternoon, swim, stay for dinner, or make a night or two of it.</p>
+        <p class="body" style="margin-top:1em; color:var(--night); max-width:30em; font-size:1rem; font-style:italic">Complimentary guest rooms will be available for one- and two-night stays. Space is limited and offered on a first-come, first-served basis.</p>
+      </div>
+      <div style="--i:1">
+        <h2 class="h-section" id="details">The Details</h2>
+        <dl class="facts">
+          <div><dt>Dates</dt><dd>Monday, November 30 to Thursday, December 3, 2026</dd></div>
+          <div><dt>Music Production</dt><dd>Concert on Tuesday, December 1</dd></div>
+          <div><dt>Drop in</dt><dd>Drop in at your leisure, or stop in for the day. Please let us know your arrival window.</dd></div>
+          <div><dt>Place</dt><dd>Desert Doghouse, Joshua Tree</dd></div>
+          <div><dt>Getting there</dt><dd>About two hours from L.A.</dd></div>
+          <div><dt>Complimentary</dt><dd>Dinner and daytime drinks</dd></div>
+          <div><dt>Overnight</dt><dd>Complimentary guest rooms will be available for one- and two-night stays.</dd></div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- The house, in the L.A. Times' words: three quotes, one walk through the property -->
+  <section class="quotes" aria-label="What the press has written about Desert Doghouse">
+    <div class="q-sticky">
+      <article class="q q1">
+        <img src="img/pool-dusk-2.webp" width="1338" height="1846" loading="lazy" alt="A woman in a draped peach gown stands at the edge of the pool at Desert Doghouse, mountains and Joshua trees behind her">
+        <figure class="press"><blockquote><p>“The appeal is rooted less in <em>spectacle</em> and more in <em>authenticity</em>.”</p></blockquote>
+          <figcaption><img class="press-logo" src="img/latimes-logo.png" width="870" height="114" loading="lazy" alt="Los Angeles Times"><span class="press-by">Business by LA Times · September 25, 2026</span></figcaption></figure>
+      </article>
+      <article class="q q2">
+        <img src="img/firepit-sunset.webp" width="900" height="552" loading="lazy" alt="A fire pit and sunken seating at Desert Doghouse at sunset, a Joshua tree and desert hills beyond">
+        <figure class="press"><blockquote><p>“You can leave Los Angeles in the morning and be in a <em>different universe</em> by lunchtime.”</p></blockquote>
+          <figcaption><img class="press-logo" src="img/latimes-logo.png" width="870" height="114" loading="lazy" alt="Los Angeles Times"><span class="press-by">Business by LA Times · September 25, 2026</span></figcaption></figure>
+      </article>
+      <article class="q q3">
+        <img src="img/pergola.webp" width="1224" height="780" loading="lazy" alt="The pool pergola at Desert Doghouse, a daybed under a shaded roof, palms and desert beyond">
+        <figure class="press press-long"><blockquote><p>“A wildly cool <em>artist residence turned luxury getaway</em>, the Desert Doghouse blends dark nostalgia, music history, and immersive design into a <em>one-of-a-kind desert escape</em> that feels both rebellious and refined.”</p></blockquote>
+          <figcaption><img class="press-logo" style="width:170px" src="img/maxim-logo.png" width="900" height="195" loading="lazy" alt="Maxim"><span class="press-by">September 20, 2023</span></figcaption></figure>
+      </article>
+    </div>
+  </section>
+
+  <!-- 6c. Proof: the host -->
+  <section class="host" aria-labelledby="host-h">
+    <img class="host-bg" src="img/host-chris.webp" width="960" height="1200" loading="lazy" alt="Chris Collins seated on a brown leather sofa in The Analog Room, a guitar leaning beside him and a glass chandelier behind">
+    <div class="host-text reveal" data-reveal>
+      <h2 class="h-section" id="host-h" style="--i:0">About the Host</h2>
+      <p class="body" style="--i:1">Interior designer, serial entrepreneur and restauranteur Chris Collins founded interior design firm The Analog Room (<a href="https://www.the-analog-room.com" target="_blank" rel="noopener" style="color:inherit;text-underline-offset:3px">www.the-analog-room.com</a>) after recognizing a growing desire for analog “third spaces”: environments designed for genuine human connection, away from screens, unnecessary noise, and digital overstimulation.</p>
+
+    </div>
+  </section>
+
+  <!-- Other attendees -->
+  <section class="program attendees" aria-labelledby="att-h">
+    <div class="reveal" data-reveal>
+      <h2 class="h-section" id="att-h" style="--i:0">Confirmed Guests Include...</h2>
+      <ul class="guests">
+        <li style="--i:2"><span class="shot"><img src="img/guest-pallavi-mehra.webp" width="480" height="480" loading="lazy" alt="Pallavi Mehra"></span><b>Pallavi Mehra</b><em>Freelance writer and contributor to major magazines and media outlets</em></li>
+        <li style="--i:3"><span class="shot"><img src="img/guest-michael-gordon.webp" width="480" height="480" loading="lazy" alt="Michael Gordon"></span><b>Michael Gordon</b><em>Vice President of Talent at Night&nbsp;Media</em></li>
+        <li style="--i:4"><span class="shot"><img src="img/guest-stephen-kamifuji.webp" width="480" height="480" loading="lazy" alt="Stephen Kamifuji"></span><b>Stephen Kamifuji</b><em>Publisher of Genlux Magazine for over 25 years. Philanthropist.</em></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- The programming -->
+  <section class="program on-cream open-house" aria-labelledby="prog-h">
+    <div class="oh-in">
+      <div class="oh-text reveal" data-reveal>
+        <h2 class="h-section" id="prog-h" style="--i:0">What Will Happen at Analog Week?</h2>
+        <p class="body" style="--i:1">Arrive between 9 a.m. and 9 p.m. Drop your bag. Swim. Work for a while. Read. Nap. Meet someone or keep to yourself.</p>
+        <p class="body" style="--i:2">In the evenings, we’ll gather for a curated dinner and conversation, usually with one screening or musical performance per night.</p>
+        <p class="body" style="--i:3">On December 1st, we welcome friends of the house Tina Guo and Derek Nakamoto for a one time concert, released on vinyl in collaboration with Elastic Stage Records</p>
+      </div>
+      <div class="oh-car reveal" data-reveal aria-roledescription="carousel" aria-label="The property">
+        <div class="car-track" id="car-track" tabindex="0">
+          <figure class="car-slide"><img src="img/dining-table.webp" width="1600" height="1046" loading="lazy" alt="The dining table set beneath crystal chandeliers"></figure>
+          <figure class="car-slide"><img src="img/library.webp" width="1470" height="962" loading="lazy" alt="The reading room with floor-to-ceiling bookshelves and leather sofas"></figure>
+          <figure class="car-slide"><img src="img/music-room.webp" width="1210" height="754" loading="lazy" alt="The music room with a grand piano"></figure>
+          <figure class="car-slide"><img src="img/pergola.webp" width="1224" height="780" loading="lazy" alt="The pool and pergola daybed among palms in the desert"></figure>
+          <figure class="car-slide"><img src="img/firepit-sunset.webp" width="900" height="552" loading="lazy" alt="The fire pit at sunset overlooking the desert"></figure>
+        </div>
+        <div class="car-ui">
+          <button class="car-btn" type="button" data-dir="-1" aria-label="Previous photo">&#8592;</button>
+          <div class="car-dots" aria-hidden="true"></div>
+          <button class="car-btn" type="button" data-dir="1" aria-label="Next photo">&#8594;</button>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- 6. Proof: the music -->
+  <section class="duo" aria-labelledby="rec-h">
+    <div class="duo-intro reveal" data-reveal>
+      <img class="es-logo-light" style="--i:0" src="img/elastic-stage-logo-light.png" width="564" height="700" loading="lazy" alt="Elastic Stage Records">
+      <h2 class="h-section" id="rec-h" style="--i:1">The Recording</h2>
+      <p class="body" style="--i:2">Tuesday at 5 PM, cellist Tina Guo and pianist Derek Nakamoto will meet for the first time onstage. They have never spoken before and have not planned what they are going to play. Instead, the two musicians will spend 40 minutes discovering a piece of music together in real time, with nothing predetermined beyond the encounter itself.</p>
+      <p class="body" style="--i:3">The performance in front of Analog Week attendees will be recorded live and released on vinyl by Elastic Stage, available for purchase exactly as it happened, with no opportunity for edits, overdubs, or revisions afterward. It’s a chance to witness not a finished work, but the moment a musical conversation begins, and to take that moment home as a record.</p>
+    </div>
+    <div class="duo-in">
+      <article class="duo-card reveal" data-reveal>
+        <figure class="duo-pic" style="--i:0; background:var(--teal)"><img src="img/tina-guo-2.webp" width="1000" height="788" loading="lazy" alt="Tina Guo in an emerald dress, standing beside her cello against a deep green backdrop" style="object-position: 50% 24%"></figure>
+        <h3 class="h-section" style="--i:1">Tina Guo</h3>
+        <p class="body" style="--i:2">Cellist, composer and entrepreneur. Credits include Dune, Top Gun: Maverick and Wonder Woman. Grammy-nominated for Inner Passion in 2017.</p>
+      </article>
+      <article class="duo-card reveal" data-reveal>
+        <figure class="duo-pic" style="--i:0; background:var(--black)"><img src="img/derek-nakamoto-2.webp" width="932" height="806" loading="lazy" alt="Derek Nakamoto, pianist, in glasses and a dark shirt against a black backdrop" style="object-position: 50% 28%"></figure>
+        <h3 class="h-section" style="--i:1">Derek Nakamoto</h3>
+        <p class="body" style="--i:2">Pianist, arranger and producer. Has worked with Keiko Matsui, Gerald Albright and Kazu Matsui.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq" aria-labelledby="faq-h">
+    <div class="faq-in reveal" data-reveal>
+      <h2 class="h-section" id="faq-h" style="--i:0">Questions</h2>
+      <div class="faq-list" style="--i:1">
+        <details open>
+          <summary>Who is hosting?</summary>
+          <div class="ans"><p>Chris Collins of Desert Doghouse and Anngelica-Marie Eshesimua of YVArtists are hosting Analog Week.</p></div>
+        </details>
+        <details>
+          <summary>About Desert Doghouse</summary>
+          <div class="ans">
+            <p>Desert Doghouse is a six-bedroom estate near Joshua Tree, featuring antiques and art. It has three distinct living rooms, multiple patios, a large pool, pickleball, a music room, and plenty of areas to gather, or hide from the world.</p>
+            <p>The house has hosted many photo and film shoots, productions, dinners, creative projects, celebrations, and gatherings. It has been featured in the LA Times, Maxim, Vice, Robb Report and others.</p>
+            <p>Analog Week is a chance to use Desert Doghouse socially, to bring interesting people together and give guests who haven’t experienced it a reason to come see it for themselves.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Why “analog”?</summary>
+          <div class="ans">
+            <p>We use “analog” as shorthand for things that tend to be better in person with people: cooking, talking, swimming, listening, reading, meeting someone by accident.</p>
+            <p>For four days, we’re making a little more room for those things.</p>
+          </div>
+        </details>
+        <details>
+          <summary>What is this not?</summary>
+          <div class="ans">
+            <p>Analog Week is not a conference, networking event, wellness retreat, or desert rager. There are no panels, forced introductions, pitching or expectation to be “on”.</p>
+            <p>Outside of the curated dinners, there is nothing you are expected to attend. Some people will arrive knowing one another, many won’t know anyone. It’s OK to sit in the shade, read a book, or break away to check out other Joshua Tree sights.</p>
+            <p>No phone baskets or digital detox rules. The idea is simply to make non-digital things more appealing: a long dinner, a swim, a record, a book, a conversation, a walk. The desert may inspire you away from your phone, but we won’t ask you to put it away.</p>
+          </div>
+        </details>
+        <details>
+          <summary>What will happen at Analog Week?</summary>
+          <div class="ans">
+            <p>Arrive within the window you shared with us. Drop your bag. Swim. Read. Nap. Meet someone or keep to yourself.</p>
+            <p>In the evening, we’ll gather for a curated dinner and conversation, with two live sets from Tina Guo and Derek Nakamoto.</p>
+            <p>Everything else is intentionally loose.</p>
+            <p>You do not need to stay for the night. Desert Doghouse is close enough to Los Angeles to come out in the morning, spend the day by the pool, stay for dinner, and head home that night. Alternatively, there are many other accommodations nearby.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Can I just drop in?</summary>
+          <div class="ans"><p>Yes. As long as you let us know your arrival window, you can drop in at your leisure any day from November 30 to December 3, or stop in for the day.</p></div>
+        </details>
+        <details>
+          <summary>Is there a charge for anything?</summary>
+          <div class="ans"><p>No. There is no fee or charge for anything.</p></div>
+        </details>
+        <details>
+          <summary>How do I best plan for this?</summary>
+          <div class="ans"><p>Don’t over-plan: this is mostly an open-house-style get-together with 10–30 other people enjoying the house with you. While the house feels secluded, major grocery stores are only 10 minutes away. The location is about two hours from L.A. Don’t think of it as a major event – think of it as a reason for a short road trip. Bring a bathing suit :)</p></div>
+        </details>
+        <details>
+          <summary>Why me?</summary>
+          <div class="ans"><p>We’ve curated a list of people we want to see more of, and you ended up on it—or a friend who fits that description invited you.</p></div>
+        </details>
+        <details>
+          <summary>What’s the catch?</summary>
+          <div class="ans"><p>There is no catch.</p></div>
+        </details>
+        <details>
+          <summary>Can I bring someone?</summary>
+          <div class="ans"><p>A partner, friend, collaborator? YES. Definitely. We need to know who is coming, so make sure we have their name.</p></div>
+        </details>
+        <details>
+          <summary>Do I need to RSVP for a day visit?</summary>
+          <div class="ans"><p>We need to know you are coming, but you can let us know the day of and we should be OK.</p></div>
+        </details>
+        <details>
+          <summary>How long can I actually stay?</summary>
+          <div class="ans"><p>Let us know ahead of time and we will let you know IF there is overnight availability.</p></div>
+        </details>
+        <details>
+          <summary>What exactly is complimentary?</summary>
+          <div class="ans"><p>Dinner and some daytime drinks. Bring snacks for the day and anything special you’d like to drink.</p></div>
+        </details>
+        <details>
+          <summary>What are the accommodations like?</summary>
+          <div class="ans"><p>The house has six bedrooms and three bathrooms, and the bedrooms will go fast. Please consider coming for the day or getting an Airbnb-style vacation rental nearby.</p></div>
+        </details>
+        <details>
+          <summary>What does a typical day look like?</summary>
+          <div class="ans"><p>Drop in at your leisure. Swim, listen to records, play pickleball, stay for a long dinner. On Tuesday, December 1, the day builds to a 40-minute performance from Tina Guo and Derek Nakamoto, recorded live.</p></div>
+        </details>
+        <details>
+          <summary>Can I work from there?</summary>
+          <div class="ans"><p>Yes. We have Wi-Fi.</p></div>
+        </details>
+        <details>
+          <summary>How analog is analog?</summary>
+          <div class="ans"><p>No restrictions on “digital” anything, but do bring your old WALKMAN :-)</p></div>
+        </details>
+        <details>
+          <summary>What should I bring?</summary>
+          <div class="ans"><p>Swimsuit and maybe something a bit nicer for dinner. Again, this is informal.</p></div>
+        </details>
+        <details>
+          <summary>What’s the transportation situation?</summary>
+          <div class="ans"><p>You must arrive by car. Please drive slowly on the unpaved road out of respect for our neighbors and other guests. The unpaved road is accessible to all regular cars – yes, we’ve even had McLarens and Ferraris make it here without issue. The house is located at 5275 Olympic Rd. in Yucca Valley, CA.</p></div>
+        </details>
+        <details>
+          <summary>Is the invitation transferable?</summary>
+          <div class="ans"><p>No</p></div>
+        </details>
+      </div>
+      <p class="muted" style="--i:2">Anything else, email <span class="mail">reservations@analog-week.com</span>.</p>
+    </div>
+  </section>
+
+  <!-- 9. RSVP: the invitation returns -->
+  <section class="rsvp" id="rsvp" aria-labelledby="rsvp-h">
+    <img src="img/hero-dusk.webp" width="1468" height="964" loading="lazy" alt="Desert Doghouse at dusk, a fire pit glowing beside the patio">
+    <div class="rsvp-copy reveal" data-reveal>
+      <p class="label" style="--i:0">You’re invited</p>
+      <h2 class="h-display" id="rsvp-h" style="--i:1">By invitation only.<br> Thirty guests.</h2>
+      <p class="lede" style="--i:2; max-width:30em">To hold your place, email <a href="mailto:reservations@analog-week.com?subject=RSVP%20for%20Analog%20Week%2C%20November%2030-December%203">reservations@analog-week.com</a>.</p>
+      <a class="btn" style="--i:3" href="mailto:reservations@analog-week.com?subject=RSVP%20for%20Analog%20Week%2C%20November%2030-December%203">RSVP</a>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <span>Analog Week at Desert Doghouse, November 30 to December 3, 2026</span>
+  <a href="mailto:reservations@analog-week.com">reservations@analog-week.com</a>
+</footer>
+
+<script>
+(function () {
+  var root = document.documentElement;
+
+  /* Reveal once, with the gate */
+  var els = document.querySelectorAll('[data-reveal]');
+  var show = function (el) { el.classList.add('is-in'); };
+  if (!('IntersectionObserver' in window)) { els.forEach(show); }
+  else {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) { show(e.target); io.unobserve(e.target); } });
+    }, { rootMargin: '0px 0px -12% 0px' });
+    els.forEach(function (el) { (el.getBoundingClientRect().top < innerHeight) ? show(el) : io.observe(el); });
+    var settle = function () { els.forEach(function (el) { if (el.getBoundingClientRect().top < innerHeight) show(el); }); };
+    if ('onscrollend' in window) document.addEventListener('scrollend', settle, true);
+    else { var t; document.addEventListener('scroll', function () { clearTimeout(t); t = setTimeout(settle, 150); }, { capture: true, passive: true }); }
+    addEventListener('resize', settle); addEventListener('load', settle);
+  }
+  clearTimeout(window.__revealFallback);
+
+  /* Skip the opening: any key, click, tap or scroll shows the page copy at once */
+  var skip = function () { root.classList.add('is-skipped'); ['keydown', 'pointerdown', 'wheel', 'touchstart'].forEach(function (ev) { removeEventListener(ev, skip); }); };
+  ['keydown', 'pointerdown', 'wheel', 'touchstart'].forEach(function (ev) { addEventListener(ev, skip, { passive: true }); });
+
+  /* Header: transparent over the hero, solid after, hides while scrolling down */
+  var head = document.getElementById('head'), last = scrollY;
+  addEventListener('scroll', function () {
+    var y = scrollY;
+    head.classList.toggle('is-solid', y > 8);
+    head.classList.toggle('is-hidden', y > last && y > innerHeight * 0.9);
+    last = y;
+  }, { passive: true });
+})();
+</script>
+
+
+<script>
+(function(){
+  try{
+    var rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var r=document.getElementById('reel-v'), a=document.getElementById('aw-v'), b=document.getElementById('aw-snd');
+    if(rm){[r,a].forEach(function(v){if(v){v.removeAttribute('autoplay');v.pause();v.setAttribute('controls','')}});if(b)b.hidden=true}
+    if(b&&a)b.addEventListener('click',function(){a.muted=!a.muted;b.textContent=a.muted?'Sound on':'Sound off';b.setAttribute('aria-pressed',String(!a.muted));if(a.paused)a.play()});
+    if('IntersectionObserver' in window&&!rm){var io=new IntersectionObserver(function(es){es.forEach(function(e){var v=e.target;if(e.isIntersecting){v.play().catch(function(){})}else{v.pause()}})},{threshold:.15});[r,a].forEach(function(v){v&&io.observe(v)})}
+  }catch(e){}
+})();
+</script>
+
+<script>
+(function(){var t=document.getElementById('car-track');if(!t)return;var dots=document.querySelector('.car-dots'),n=t.children.length;
+for(var i=0;i<n;i++){dots.appendChild(document.createElement('span'));}
+function idx(){return Math.round(t.scrollLeft/t.clientWidth);}
+function mark(){var k=idx();[].forEach.call(dots.children,function(d,j){d.classList.toggle('on',j===k);});}
+function go(k){k=(k+n)%n;t.scrollTo({left:k*t.clientWidth,behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});}
+t.addEventListener('scroll',function(){window.requestAnimationFrame(mark);},{passive:true});
+[].forEach.call(document.querySelectorAll('.car-btn'),function(b){b.addEventListener('click',function(){go(idx()+(+b.dataset.dir));});});
+t.addEventListener('keydown',function(e){if(e.key==='ArrowRight'){e.preventDefault();go(idx()+1);}if(e.key==='ArrowLeft'){e.preventDefault();go(idx()-1);}});
+mark();})();
+</script>
+
+</html>
