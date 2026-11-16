@@ -112,7 +112,7 @@ a { color: inherit; text-underline-offset: 0.18em; text-decoration-thickness: 0.
 .hero-copy { color: #e9e2dc; text-align: center; margin-inline: auto; display: flex; flex-direction: column; align-items: center; }
 .hero-copy .tagline, .hero-copy .lede { margin-inline: auto; }
 .hero-copy .h-display.wordmark { margin-bottom: clamp(18px, 3vh, 36px) !important; }
-.hero-copy .h-date { font-weight: 500; font-size: clamp(.95rem, 1.2vw, 1.15rem); letter-spacing: .16em; text-transform: uppercase; color: #e9e2dc; margin-bottom: .9rem; }
+.hero-copy .h-date { margin-top: 0; font-weight: 500; font-size: clamp(.95rem, 1.2vw, 1.15rem); letter-spacing: .16em; text-transform: uppercase; color: #e9e2dc; margin-bottom: .9rem; }
 .hero-copy .lede + .lede { margin-top: .8em; }
 .hero-copy .label { color: #e9e2dc; margin-bottom: 1.1rem; }
 .hero-copy .h-display.wordmark { font-size: 0; line-height: 0; margin-bottom: 1.2rem; }
@@ -120,7 +120,7 @@ a { color: inherit; text-underline-offset: 0.18em; text-decoration-thickness: 0.
 .hero-copy .h-display { margin-bottom: 1rem; font-size: clamp(3rem, 9vw, 8.2rem); line-height: 0.92; }
 .h-display .at { display: block; margin-top: 0.7em; font-size: clamp(0.9rem, 1.5vw, 1.35rem); letter-spacing: 0.16em; text-transform: uppercase; line-height: 1.3; }
 .hero-copy .tagline { font-family: var(--f-display); font-weight: 300; font-size: clamp(1.5rem, 2.8vw, 2.5rem); line-height: 1.1; letter-spacing: -0.01em; margin-bottom: 1.1rem; max-width: 20em; color: #e9e2dc; }
-.hero-copy .lede { max-width: 33em; font-size: clamp(1.15rem, 0.5vw + 1rem, 1.4rem); color: #e9e2dc; }
+.hero-copy .lede { text-wrap: balance; max-width: 33em; font-size: clamp(1.15rem, 0.5vw + 1rem, 1.4rem); color: #e9e2dc; }
 
 .invite { /* reduced-motion and no-motion default: a quiet line above the eyebrow */
   font-family: var(--f-display); font-weight: 300; font-size: clamp(1.4rem, 2.4vw, 2rem); margin-bottom: 0.9rem; color: var(--ember-lt);
@@ -138,7 +138,7 @@ a { color: inherit; text-underline-offset: 0.18em; text-decoration-thickness: 0.
   .hero-copy > *:not(.invite) { animation: arrive 1100ms var(--ease-expo) both; }
   .hero-copy .label { animation-delay: 2.7s; }
   .hero-copy .h-display { animation-delay: 2.82s; }
-  .hero-copy .h-date { animation-delay: 2.9s; }
+  .hero-copy .h-date { animation-delay: 2.7s; }
   .hero-copy .tagline { animation-delay: 2.96s; }
   .hero-copy .lede { animation-delay: 3.1s; }
   .hero::after { animation: scrim 2.6s ease-out both; }
@@ -507,11 +507,11 @@ a { color: inherit; text-underline-offset: 0.18em; text-decoration-thickness: 0.
     </div>
     <div class="hero-copy">
       <p class="invite" id="invite"><span>You’re invited</span></p>
-      <h1 class="h-display wordmark" id="h1"><img src="img/analog-week-logo-stacked.png" width="1400" height="982" alt="Analog Week at Desert Doghouse"></h1>
       <p class="h-date">November 30 to December 3</p>
+      <h1 class="h-display wordmark" id="h1"><img src="img/analog-week-logo-stacked.png" width="1400" height="982" alt="Analog Week at Desert Doghouse"></h1>
       <p class="tagline">Some things are better in person.<br>This is one of them.</p>
-      <p class="lede">We’re opening Desert Doghouse to an eclectic mix of artists, entrepreneurs, creatives, friends, returning guests, future collaborators, and those who have been curious to experience the house.</p>
-      <p class="lede">Join us in Joshua Tree for an afternoon, take a swim, stay for dinner, or turn it into a complimentary night or two away. On December 1, join us for an intimate musical performance by Tina Guo and Derek Nakamoto.</p>
+      <p class="lede">For four days, we are opening Desert Doghouse in Joshua Tree to an eclectic mix of artists, entrepreneurs, creatives, and those who have been curious to experience the house.</p>
+      <p class="lede">On December 1, join us for an intimate musical performance by Tina Guo and Derek Nakamoto.</p>
     </div>
   </section>
 
