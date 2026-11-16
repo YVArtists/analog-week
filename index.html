@@ -111,7 +111,9 @@ a { color: inherit; text-underline-offset: 0.18em; text-decoration-thickness: 0.
 .hero-copy { padding: 0 var(--margin) clamp(40px, 8vh, 96px); max-width: 1180px; }
 .hero-copy { color: #e9e2dc; text-align: center; margin-inline: auto; display: flex; flex-direction: column; align-items: center; }
 .hero-copy .tagline, .hero-copy .lede { margin-inline: auto; }
-.hero-copy .h-display.wordmark { margin-bottom: clamp(70px, 24vh, 260px) !important; }
+.hero-copy .h-display.wordmark { margin-bottom: clamp(18px, 3vh, 36px) !important; }
+.hero-copy .h-date { font-weight: 500; font-size: clamp(.95rem, 1.2vw, 1.15rem); letter-spacing: .16em; text-transform: uppercase; color: #e9e2dc; margin-bottom: .9rem; }
+.hero-copy .lede + .lede { margin-top: .8em; }
 .hero-copy .label { color: #e9e2dc; margin-bottom: 1.1rem; }
 .hero-copy .h-display.wordmark { font-size: 0; line-height: 0; margin-bottom: 1.2rem; }
 .wordmark img { width: min(340px, 62vw); height: auto; }
@@ -136,6 +138,7 @@ a { color: inherit; text-underline-offset: 0.18em; text-decoration-thickness: 0.
   .hero-copy > *:not(.invite) { animation: arrive 1100ms var(--ease-expo) both; }
   .hero-copy .label { animation-delay: 2.7s; }
   .hero-copy .h-display { animation-delay: 2.82s; }
+  .hero-copy .h-date { animation-delay: 2.9s; }
   .hero-copy .tagline { animation-delay: 2.96s; }
   .hero-copy .lede { animation-delay: 3.1s; }
   .hero::after { animation: scrim 2.6s ease-out both; }
@@ -365,6 +368,10 @@ a { color: inherit; text-underline-offset: 0.18em; text-decoration-thickness: 0.
 .q .press-long blockquote p { font-size: clamp(1.3rem, 2.1vw, 1.95rem); line-height: 1.2; }
 @media (max-width: 760px) { .open-house .oh-car { order: -1; } }
 .nw { white-space: nowrap; }
+.attendees .guests em { font-weight: 500; }
+.attendees .guests .bio { display: block; margin-top: .55rem; font-size: .95rem; line-height: 1.5; color: var(--muted-on-cream); max-width: 16rem; text-wrap: pretty; }
+.attendees .guests .bio cite { font-style: italic; }
+.guests { align-items: flex-start; }
 .es-logo { width: 84px; height: auto; margin-top: .4rem; }
 .program.on-cream .body { color: var(--ink-on-cream); }
 .program.on-cream strong { color: #7a3d27; }
@@ -501,8 +508,10 @@ a { color: inherit; text-underline-offset: 0.18em; text-decoration-thickness: 0.
     <div class="hero-copy">
       <p class="invite" id="invite"><span>You’re invited</span></p>
       <h1 class="h-display wordmark" id="h1"><img src="img/analog-week-logo-stacked.png" width="1400" height="982" alt="Analog Week at Desert Doghouse"></h1>
+      <p class="h-date">November 30 to December 3</p>
       <p class="tagline">Some things are better in person.<br>This is one of them.</p>
-      <p class="lede">Four days at Desert Doghouse, November 30 to December 3, with friends, returning guests and future collaborators. Retreat for the day or week, indulge your senses, and connect with people who value the extraordinary. We also invite you to listen in on December 1 for a special musical performance from Tina Guo and Derek Nakamoto.</p>
+      <p class="lede">We’re opening Desert Doghouse to an eclectic mix of artists, entrepreneurs, creatives, friends, returning guests, future collaborators, and those who have been curious to experience the house.</p>
+      <p class="lede">Join us in Joshua Tree for an afternoon, take a swim, stay for dinner, or turn it into a complimentary night or two away. On December 1, join us for an intimate musical performance by Tina Guo and Derek Nakamoto.</p>
     </div>
   </section>
 
@@ -608,9 +617,9 @@ a { color: inherit; text-underline-offset: 0.18em; text-decoration-thickness: 0.
     <div class="reveal" data-reveal>
       <h2 class="h-section" id="att-h" style="--i:0">Confirmed Guests Include...</h2>
       <ul class="guests">
-        <li style="--i:2"><span class="shot"><img src="img/guest-pallavi-mehra.webp" width="480" height="480" loading="lazy" alt="Pallavi Mehra"></span><b>Pallavi Mehra</b><em>Freelance writer and contributor to major magazines and media outlets</em></li>
-        <li style="--i:3"><span class="shot"><img src="img/guest-michael-gordon.webp" width="480" height="480" loading="lazy" alt="Michael Gordon"></span><b>Michael Gordon</b><em>Vice President of Talent at Night&nbsp;Media</em></li>
-        <li style="--i:4"><span class="shot"><img src="img/guest-stephen-kamifuji.webp" width="480" height="480" loading="lazy" alt="Stephen Kamifuji"></span><b>Stephen Kamifuji</b><em>Publisher of Genlux Magazine for over 25 years. Philanthropist.</em></li>
+        <li style="--i:2"><span class="shot"><img src="img/guest-pallavi-mehra.webp" width="480" height="480" loading="lazy" alt="Pallavi Mehra"></span><b>Pallavi Mehra</b><em>Journalist, Editor, and Content Strategist</em><span class="bio">Specializing in luxury lifestyle, travel, design, and culture, her work has appeared in leading publications including Vogue, Architectural Digest, GQ, Travel + Leisure, and Condé Nast Traveller.</span></li>
+        <li style="--i:3"><span class="shot"><img src="img/guest-michael-gordon.webp" width="480" height="480" loading="lazy" alt="Michael Gordon"></span><b>Michael Gordon</b><em>Sr. Talent Executive at Night&nbsp;Media</em><span class="bio">Former Manager of MrBeast. Recognized by <cite>The Hollywood Reporter</cite> as one of the industry’s top creator managers in 2025, Michael is a leading figure in the evolving creator economy.</span></li>
+        <li style="--i:4"><span class="shot"><img src="img/guest-stephen-kamifuji.webp" width="480" height="480" loading="lazy" alt="Stephen Kamifuji"></span><b>Stephen Kamifuji</b><em>Founder and Creative Director of GENLUX Magazine</em><span class="bio">An award-winning designer and creative visionary, he has earned over 40 national and international design honors, including a Clio Award.</span></li>
       </ul>
     </div>
   </section>
