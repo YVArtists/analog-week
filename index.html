@@ -549,9 +549,8 @@ a { color: inherit; text-underline-offset: 0.18em; text-decoration-thickness: 0.
     <div class="split-media">
       <figure class="split-vid" style="margin:0">
         <video id="aw-v" muted loop playsinline autoplay preload="metadata" poster="img/analog-week-poster.jpg" aria-label="People at the last Analog Week">
-          <source src="vid/analog-week.mp4" type="video/mp4">
+          <source src="vid/analog-week-silent.mp4" type="video/mp4">
         </video>
-        <button class="snd" type="button" id="aw-snd" aria-pressed="false">Sound on</button>
         <figcaption class="label">The last Analog Week</figcaption>
       </figure>
     </div>
@@ -840,7 +839,6 @@ a { color: inherit; text-underline-offset: 0.18em; text-decoration-thickness: 0.
     var rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
     var r=document.getElementById('reel-v'), a=document.getElementById('aw-v'), b=document.getElementById('aw-snd');
     if(rm){[r,a].forEach(function(v){if(v){v.removeAttribute('autoplay');v.pause();v.setAttribute('controls','')}});if(b)b.hidden=true}
-    if(b&&a)b.addEventListener('click',function(){a.muted=!a.muted;b.textContent=a.muted?'Sound on':'Sound off';b.setAttribute('aria-pressed',String(!a.muted));if(a.paused)a.play()});
     if('IntersectionObserver' in window&&!rm){var io=new IntersectionObserver(function(es){es.forEach(function(e){var v=e.target;if(e.isIntersecting){v.play().catch(function(){})}else{v.pause()}})},{threshold:.15});[r,a].forEach(function(v){v&&io.observe(v)})}
   }catch(e){}
 })();
